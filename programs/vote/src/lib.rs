@@ -1,5 +1,4 @@
 use anchor_lang::prelude::*;
-use anchor_lang::solana_program::hash::hash;
 
 declare_id!("voteu2nY8DJ1v9AWV2Fsp3eBTPzy6btuaok4gBnvm15");
 
@@ -34,7 +33,7 @@ pub struct Initialize<'info> {
         init,
         payer = signer,
         space = VoteState::INIT_SPACE,
-        seeds = [hash(_url.as_bytes()).to_bytes().as_ref()],
+        seeds = [_url.as_bytes().as_ref()],
         bump
     )]
     vote: Account<'info, VoteState>,
@@ -48,7 +47,7 @@ pub struct Vote<'info> {
     signer: Signer<'info>,
     #[account(
         mut,
-        seeds = [hash(_url.as_bytes()).to_bytes().as_ref()],
+        seeds = [_url.as_bytes().as_ref()],
         bump = vote.bump
     )]
     vote: Account<'info, VoteState>,
