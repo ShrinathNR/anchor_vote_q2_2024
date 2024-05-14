@@ -43,7 +43,7 @@ describe("anchor-vote-program-sol-a", () => {
     .then(log)
   })
 
-  xit("Initialize", async () => {
+  it("Initialize", async () => {
     const tx = await program.methods.initialize(site)
     .accounts({
       signer: signer.publicKey,
@@ -58,7 +58,7 @@ describe("anchor-vote-program-sol-a", () => {
     .then(log);
   });
 
-  xit("Upvote", async () => {
+  it("Upvote", async () => {
     const tx = await program.methods
     .upvote(site)
     .accounts({
