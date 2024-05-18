@@ -47,8 +47,6 @@ describe("anchor-vote-program-sol-a", () => {
     const tx = await program.methods.initialize(site)
     .accounts({
       signer: signer.publicKey,
-      vote,
-      systemProgram: SystemProgram.programId
     })
     .signers([
       signer
@@ -63,8 +61,6 @@ describe("anchor-vote-program-sol-a", () => {
     .upvote(site)
     .accounts({
       signer: signer.publicKey,
-      vote,
-      systemProgram: SystemProgram.programId
     })
     .signers([
       signer
@@ -79,8 +75,6 @@ describe("anchor-vote-program-sol-a", () => {
     .downvote(site)
     .accounts({
       signer: signer.publicKey,
-      vote,
-      systemProgram: SystemProgram.programId
     })
     .signers([
       signer
