@@ -33,7 +33,7 @@ describe("anchor-vote-program-sol-a", () => {
   }
 
   const log = async(signature: string): Promise<string> => {
-    console.log(`Your transaction signature: https://explorer.solana.com/transaction/${signature}?cluster=custom&customUrl=http%3A%2F%2Flocalhost%3A8899`);
+    console.log(`\nYour transaction signature: https://explorer.solana.com/transaction/${signature}?cluster=custom&customUrl=http%3A%2F%2Flocalhost%3A8899\n`);
     return signature;
   }
 
@@ -54,7 +54,12 @@ describe("anchor-vote-program-sol-a", () => {
     .rpc()
     .then(confirm)
     .then(log);
+
+    const voteState = await program.account.voteState.fetch(vote);
+    console.log(voteState);
+
   });
+
 
   it("Upvote", async () => {
     const tx = await program.methods
@@ -66,9 +71,13 @@ describe("anchor-vote-program-sol-a", () => {
       signer
     ])
     .rpc()
-    .then(confirm)
-    .then(log);
+    .then(confirm);
+
+    const voteState = await program.account.voteState.fetch(vote);
+    console.log(voteState);
+
   });
+
 
   it("Downvote", async () => {
     const tx = await program.methods
@@ -82,5 +91,7 @@ describe("anchor-vote-program-sol-a", () => {
     .rpc()
     .then(confirm)
     .then(log);
+
   });
+
 });

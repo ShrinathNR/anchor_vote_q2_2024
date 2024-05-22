@@ -9,17 +9,20 @@ pub mod vote {
 
     pub fn initialize(ctx: Context<Initialize>, _url: String) -> Result<()> {
         ctx.accounts.vote.score = 0;
+        ctx.accounts.vote.last_vote = None;
         ctx.accounts.vote.bump = ctx.bumps.vote;
         Ok(())
     }
 
     pub fn upvote(ctx: Context<Vote>, _url: String) -> Result<()> {
         ctx.accounts.vote.score += 1;
+        ctx.accounts.vote.last_vote = Some(ctx.accounts.signer.key());
         Ok(())
     }
 
     pub fn downvote(ctx: Context<Vote>, _url: String) -> Result<()> {
         ctx.accounts.vote.score -= 1;
+        ctx.accounts.vote.last_vote = Some(ctx.accounts.signer.key());
         Ok(())
     }
 }
@@ -57,9 +60,10 @@ pub struct Vote<'info> {
 #[account]
 pub struct VoteState {
     score: i64,
+    last_vote: Option<Pubkey>,
     bump: u8
 }
 
 impl Space for VoteState {
-    const INIT_SPACE: usize = 8 + 8 + 1;
+    const INIT_SPACE: usize = 8 + 8 + 33 + 1;
 }
